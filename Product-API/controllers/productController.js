@@ -73,3 +73,13 @@ writeProducts(products); // everything is good it will update the prod
 };
 
 //
+
+exports.deleteProduct = (req, res) => { // deleting product by id 
+  
+    const index = products.findIndex(p => p.id === parseInt(req.params.id));
+ 
+    if (index === -1) return res.status(404).send('Product not found');
+        products.splice(index, 1);
+  writeProducts(products);
+    res.status(204).send();
+};
