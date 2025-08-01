@@ -2,16 +2,11 @@
   {
     "id": 1,
     "name": "Macbook Air",
-    "price": 1299.99,
-    "description": "Lightweight laptop"
+    "price": 1499.99,
+    "description": "Updated by vig"
   },
   {
     "id": 2,
-    "name": "Sample Product",
-    "price": 100
-  },
-  {
-    "id": 3,
     "name": "Sample Product",
     "price": 100
   }
