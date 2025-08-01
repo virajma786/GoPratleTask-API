@@ -10,4 +10,8 @@ function readProducts() {
   return JSON.parse(data);// thnn parses the json into array and returnas
 }
 
+function writeProducts(products) {
+  fs.writeFileSync(filePath, JSON.stringify(products, null, 2));
+}  // saves give array to my file 
+
 
