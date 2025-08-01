@@ -39,6 +39,19 @@ exports.getAllProducts = (req, res) => { // handiling the the requestes
 
 exports.getProductById = (req, res) => {  // search by id 
   const product = products.find(p => p.id === parseInt(req.params.id));
-  if (!product) return res.status(404).send('Product not found');
+ 
+  if (!product) return res.status(404).send('Product not found');  // if product not fount through excep
+
   res.json(product);
+};
+
+exports.createProduct = (req, res) => {   // creting new prod 
+  const { name, price, description } = req.body;
+  if (!name || typeof price !== 'number') {   // if name or price is not in type through 400 invalid
+    return res.status(400).send('Invalid input');
+  }
+  const newProduct = { id: nextId++, name, price, description }; // if everything is matches pushes the products 
+  products.push(newProduct);
+  writeProducts(products);
+  res.status(201).json(newProduct); //  writes 201 success 
 };
