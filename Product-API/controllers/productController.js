@@ -46,12 +46,30 @@ exports.getProductById = (req, res) => {  // search by id
 };
 
 exports.createProduct = (req, res) => {   // creting new prod 
-  const { name, price, description } = req.body;
+ 
+    const { name, price, description } = req.body;
+
   if (!name || typeof price !== 'number') {   // if name or price is not in type through 400 invalid
     return res.status(400).send('Invalid input');
   }
   const newProduct = { id: nextId++, name, price, description }; // if everything is matches pushes the products 
+   
   products.push(newProduct);
-  writeProducts(products);
+    writeProducts(products);
   res.status(201).json(newProduct); //  writes 201 success 
 };
+
+exports.updateProduct = (req, res) => {  // updating existing product by id
+  const { name, price, description } = req.body;
+  
+    const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).send('Product not found');
+
+     if (name) product.name = name;
+   if (typeof price === 'number') product.price = price;
+    if (description) product.description = description;
+writeProducts(products); // everything is good it will update the prod
+  res.json(product);// gives json in response 
+};
+
+//
