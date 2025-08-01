@@ -14,4 +14,22 @@ function writeProducts(products) {
   fs.writeFileSync(filePath, JSON.stringify(products, null, 2));
 }  // saves give array to my file 
 
+let products = readProducts();  
+let nextId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+// if any prod exists in array  sets the id with highest existing id +1
 
+
+exports.getAllProducts = (req, res) => { // handiling the the requestes 
+  const { q, page = 1, limit = 10 } = req.query;
+  let filtered = products;
+
+  if (q) {
+    filtered = filtered.filter(product =>
+      product.name.toLowerCase().includes(q.toLowerCase())
+    );
+  }
+
+  const start = (page - 1) * limit;
+  const end = start + +limit;
+  res.json(filtered.slice(start, end)); // sending the respones as json
+};
